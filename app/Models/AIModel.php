@@ -72,8 +72,8 @@ class AIModel extends Model
         return $this->belongsToMany(AIModel::class, 'related_models', 'model_id1', 'model_id2')->withPivot('relationship_type');
     }
 
-    public function useCases(): HasMany
+    public function useCases(): BelongsToMany
     {
-        return $this->hasMany(UseCase::class);
+        return $this->belongsToMany(UseCase::class, 'model_use_cases');
     }
 }

@@ -1,0 +1,14 @@
+models:
+    AIModel: { name: string, markdown_description: 'text nullable', limitations: 'text nullable', evaluation_metrics: 'text nullable', training_data_description: 'text nullable', license: 'string nullable', maintainers_authors: 'string nullable', date_added: 'datetime nullable', date_updated: 'datetime nullable', implementation_guidance_id: 'integer nullable', is_gpu_accelerated: "boolean default:'0'", interpretability_score: 'integer nullable', interpretability_explanation: 'text nullable', training_data_size_estimate: 'string nullable' }
+    AlgorithmType: {  }
+    DataType: { name: string }
+    Framework: { name: string }
+    ImplementationGuidance: { a_i_model_id: 'integer nullable', title: string, description: text, best_practices: 'text nullable', code_example: 'text nullable', performance_benchmarks: 'text nullable' }
+    ModelAlgorithmType: {  }
+    ModelDataType: { a_i_model_id: integer, data_type_id: integer }
+    ModelFramework: { a_i_model_id: integer, framework_id: integer }
+    ModelTask: { a_i_model_id: integer, task_id: integer }
+    ResearchPaper: { title: string, authors: string, publication_date: date, url: string }
+    Task: { name: string }
+    UseCase: { description: text }
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string nullable', current_team_id: 'integer nullable', profile_photo_path: 'string nullable', two_factor_secret: 'text nullable', two_factor_recovery_codes: 'text nullable', two_factor_confirmed_at: 'datetime nullable' }
