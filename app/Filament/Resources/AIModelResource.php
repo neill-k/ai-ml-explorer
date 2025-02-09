@@ -74,6 +74,14 @@ public static function form(Form $form): Form
                     MarkdownEditor::make('training_data_description')
                         ->label('Training Data Description'),
                     MarkdownEditor::make('interpretability_explanation'),
+                    MarkdownEditor::make('algorithm_description')
+                        ->label('Algorithm Description'),
+                    MarkdownEditor::make('tasks_description')
+                        ->label('Tasks Description'),
+                    MarkdownEditor::make('research_papers_summary')
+                        ->label('Research Papers Summary'),
+                    MarkdownEditor::make('related_models_description')
+                        ->label('Related Models Description'),
                 ]),
         ]);
 }

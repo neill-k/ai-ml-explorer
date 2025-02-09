@@ -27,6 +27,10 @@ return new class extends Migration
             $table->integer('interpretability_score')->nullable();
             $table->text('interpretability_explanation')->nullable();
             $table->string('training_data_size_estimate')->nullable();
+            $table->text('algorithm_description')->nullable();
+            $table->text('tasks_description')->nullable();
+            $table->text('research_papers_summary')->nullable();
+            $table->text('related_models_description')->nullable();
             $table->timestamps();
         });
 

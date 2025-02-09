@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('implementation_guidances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('a_i_model_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('description');
             $table->text('best_practices')->nullable();
             $table->text('code_example')->nullable();
             $table->text('performance_benchmarks')->nullable();
+            $table->text('implementation_steps')->nullable();
+            $table->text('optimization_tips')->nullable();
+            $table->text('debugging_guidance')->nullable();
+            $table->text('deployment_considerations')->nullable();
+            $table->unsignedBigInteger('a_i_model_id')->nullable();
             $table->timestamps();
         });
     }

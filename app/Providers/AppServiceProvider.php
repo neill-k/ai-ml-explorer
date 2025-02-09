@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Livewire\AIModelList;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Livewire\Livewire;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,5 +23,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Blade::component('layouts.main-layout', 'main-layout');
+        Livewire::component('a-i-model-list', AIModelList::class);
     }
 }

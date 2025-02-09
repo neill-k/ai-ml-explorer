@@ -19,7 +19,7 @@ class AIModel extends Model
         'markdown_description',
         'limitations',
         'evaluation_metrics',
-        'training_data_description', // Keeping this field
+        'training_data_description',
         'license',
         'maintainers_authors',
         'date_added',
@@ -29,6 +29,10 @@ class AIModel extends Model
         'interpretability_score',
         'interpretability_explanation',
         'training_data_size_estimate',
+        'algorithm_description',
+        'tasks_description',
+        'research_papers_summary',
+        'related_models_description',
     ];
 
     protected $casts = [
