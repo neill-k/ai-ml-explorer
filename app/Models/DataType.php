@@ -15,6 +15,6 @@ class DataType extends Model
 
     public function models(): BelongsToMany
     {
-        return $this->belongsToMany(AIModel::class, 'model_data_types');
+        return $this->belongsToMany(AiModel::class, 'model_data_types');
     }
 }

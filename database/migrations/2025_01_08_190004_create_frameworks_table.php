@@ -19,7 +19,7 @@ return new class extends Migration
 
         Schema::create('model_frameworks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('a_i_model_id')->constrained()->onDelete('cascade');
+            $table->foreignId('ai_model_id')->constrained()->onDelete('cascade');
             $table->foreignId('framework_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

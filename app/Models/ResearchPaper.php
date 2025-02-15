@@ -17,8 +17,12 @@ class ResearchPaper extends Model
         'url',
     ];
 
+    protected $casts = [
+        'publication_date' => 'datetime',
+    ];
+
     public function models(): BelongsToMany
     {
-        return $this->belongsToMany(AIModel::class, 'model_research_papers');
+        return $this->belongsToMany(AiModel::class, 'model_research_papers');
     }
 }

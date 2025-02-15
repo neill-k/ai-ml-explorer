@@ -12,7 +12,7 @@
             @foreach ($this->models as $model)
                 <flux:row :key="$model->id">
                     <flux:cell class="font-medium">
-                        <a href="{{ route('models.show', $model) }}" class="hover:text-primary-600">
+                        <a href="{{ route('models.show', $model) }}">
                             {{ $model->name }}
                         </a>
                     </flux:cell>
@@ -29,9 +29,9 @@
 
                     <flux:cell>
                         @if($model->is_gpu_accelerated)
-                            <flux:badge size="sm" color="success" inset="top bottom">Yes</flux:badge>
+                            <flux:badge size="sm" inset="top bottom">Yes</flux:badge>
                         @else
-                            <flux:badge size="sm" color="gray" inset="top bottom">No</flux:badge>
+                            <flux:badge size="sm" inset="top bottom">No</flux:badge>
                         @endif
                     </flux:cell>
 

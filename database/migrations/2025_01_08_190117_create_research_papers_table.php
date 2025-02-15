@@ -22,7 +22,7 @@ return new class extends Migration
 
         Schema::create('model_research_papers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('a_i_model_id')->constrained()->onDelete('cascade');
+            $table->foreignId('ai_model_id')->constrained()->onDelete('cascade');
             $table->foreignId('research_paper_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

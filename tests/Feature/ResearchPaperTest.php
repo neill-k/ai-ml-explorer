@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\ResearchPaper;
-use App\Models\AIModel;
+use App\Models\AiModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -42,7 +42,7 @@ class ResearchPaperTest extends TestCase
     public function it_can_have_models()
     {
         $paper = ResearchPaper::factory()->create();
-        $model = AIModel::factory()->create();
+        $model = AiModel::factory()->create();
 
         $paper->models()->attach($model);
 

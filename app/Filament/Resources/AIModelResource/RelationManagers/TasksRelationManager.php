@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\AIModelResource\RelationManagers;
+namespace App\Filament\Resources\AiModelResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -21,6 +21,9 @@ class TasksRelationManager extends RelationManager
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Textarea::make('description')
+                    ->maxLength(65535)
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -30,6 +33,9 @@ class TasksRelationManager extends RelationManager
             ->recordTitleAttribute('name')
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('description')
+                    ->limit(50)
+                    ->searchable(),
             ])
             ->filters([
                 //

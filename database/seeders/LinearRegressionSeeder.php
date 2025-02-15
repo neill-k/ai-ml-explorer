@@ -2,18 +2,119 @@
 
 namespace Database\Seeders;
 
-use App\Models\AIModel;
+use App\Models\AiModel;
+use App\Models\AlgorithmType;
 use App\Models\ImplementationGuidance;
+use App\Models\ResearchPaper;
+use App\Models\Task;
+use App\Models\UseCase;
 use Illuminate\Database\Seeder;
 
 class LinearRegressionSeeder extends Seeder
 {
     public function run(): void
     {
+        // Create algorithm type
+        $algorithmType = AlgorithmType::create([
+            'name' => 'Regression'
+        ]);
+
+        // Create tasks
+        $tasks = [
+            [
+                'name' => 'Continuous Value Prediction',
+                'description' => 'Predicting continuous numeric values based on input features. Linear regression excels at predicting quantitative outcomes like prices, measurements, or scores based on a set of input variables. It provides a mathematical function that maps input features to a continuous output value.'
+            ],
+            [
+                'name' => 'Trend Analysis',
+                'description' => 'Analyzing and forecasting trends in data. Linear regression can identify and quantify trends over time or across variables, making it valuable for understanding patterns in historical data and making future projections. It\'s particularly useful in business forecasting, economic analysis, and scientific research.'
+            ],
+            [
+                'name' => 'Feature Importance Analysis',
+                'description' => 'Understanding the relative importance of different features. Through its coefficients, linear regression provides clear insights into how much each input variable influences the outcome. This makes it an excellent tool for identifying which factors have the strongest impact on the target variable.'
+            ],
+            [
+                'name' => 'Statistical Inference',
+                'description' => 'Performing statistical inference on relationships between variables. Linear regression provides a framework for hypothesis testing, confidence interval estimation, and understanding the statistical significance of relationships between variables. This is crucial in research, economics, and scientific studies where understanding the reliability of relationships is important.'
+            ],
+            [
+                'name' => 'Relationship Quantification',
+                'description' => 'Quantifying relationships between dependent and independent variables. Linear regression provides precise mathematical measurements of how changes in one variable relate to changes in another, making it invaluable for understanding cause-and-effect relationships in various fields from economics to scientific research.'
+            ],
+            [
+                'name' => 'Time Series Forecasting',
+                'description' => 'Predicting future values based on historical time series data. While specialized time series models exist, linear regression can be adapted for time series analysis by incorporating time-based features, making it useful for simple forecasting tasks and establishing baseline predictions.'
+            ]
+        ];
+
+        $taskIds = [];
+        foreach ($tasks as $task) {
+            $taskIds[] = Task::create($task)->id;
+        }
+
+        // Create use cases
+        $useCases = [
+            [
+                'name' => 'Price Prediction',
+                'description' => 'Predicting prices in real estate, stocks, etc.'
+            ],
+            [
+                'name' => 'Sales Forecasting',
+                'description' => 'Forecasting future sales based on historical data'
+            ],
+            [
+                'name' => 'Scientific Relationship Modeling',
+                'description' => 'Modeling relationships between variables in scientific research'
+            ]
+        ];
+
+        $useCaseIds = [];
+        foreach ($useCases as $useCase) {
+            $useCaseIds[] = UseCase::create($useCase)->id;
+        }
+
         // Create the Linear Regression model
-        $model = AIModel::create([
+        $markdownDescription = <<<EOT
+Linear regression is a **supervised learning** algorithm used for predicting a continuous numeric outcome based on one or more input features ([Wikipedia](https://en.wikipedia.org/wiki/Linear_regression#:~:text=Linear%20regression%20is%20also%20a,3)).  It assumes a linear relationship between the independent variables \$X\$ and the dependent variable \$Y\$.
+
+### Simple Linear Regression
+
+The simplest case, **simple linear regression**, models this relationship with a line:
+
+\$\$ Y = \beta_0 + \beta_1 X + \epsilon \$\$
+
+where \$\beta_0\$ is the intercept, \$\beta_1\$ is the coefficient (slope) for the feature, and \$\epsilon\$ is an error term.
+
+### Multiple Linear Regression
+
+In **multiple linear regression**, the model extends to:
+
+\$\$ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_p X_p + \epsilon \$\$
+
+This represents a linear combination of several features ([Wikipedia](https://en.wikipedia.org/wiki/Linear_regression#:~:text=general%20linear%20models%2C%20restricted%20to,for%20multiple%20linear%20regression%20is)).
+
+### Goal and Methods
+
+The goal is to find the parameters (\$\beta\$ coefficients) that **minimize the sum of squared errors** between the predicted and actual values of \$Y\$ ([Wikipedia](https://en.wikipedia.org/wiki/Least_squares#:~:text=In%20regression%20analysis%20%2C%20least,the%20points%20from%20the%20curve)).
+
+This is typically done via:
+
+*   **Ordinary Least Squares (OLS):**  \$\hat{\beta} = (X^T X)^{-1}X^T y\$ (closed-form solution)
+*   **Iterative Optimization:** (e.g., gradient descent) for large datasets.
+
+### Historical Context and Statistical Properties
+
+The method of least squares dates back to Legendre (1805) and Gauss (1809) ([Wikipedia](https://en.wikipedia.org/wiki/Least_squares#:~:text=The%20least,4)), making linear regression one of the oldest and most studied models. Under certain assumptions, OLS produces the **best linear unbiased estimator (BLUE)** of the coefficients ([Wikipedia](https://en.wikipedia.org/wiki/Gauss%E2%80%93Markov_theorem#:~:text=In%20statistics%20%2C%20the%20Gauss%E2%80%93Markov,cannot%20be%20dropped%2C%20since%20biased)).
+
+### Practical Value
+
+Linear regression is valued for its **simplicity and interpretability**: each coefficient \$\beta_j\$ represents the expected change in \$Y\$ for a one-unit change in \$X_j\$, holding other factors constant.  It remains a fundamental tool for both prediction and inference ([Wikipedia](https://en.wikipedia.org/wiki/Linear_regression#:~:text=Linear%20regression%20is%20widely%20used,tools%20used%20in%20these%20disciplines)).
+EOT;
+
+        $model = AiModel::create([
+            'algorithm_type_id' => $algorithmType->id,
             'name' => 'Linear Regression',
-            'markdown_description' => "Linear regression is a **supervised learning** algorithm used for predicting a continuous numeric outcome based on one or more input features ([Linear regression - Wikipedia](https://en.wikipedia.org/wiki/Linear_regression#:~:text=Linear%20regression%20is%20also%20a,3)). It assumes a linear relationship between the independent variables \\(X\\) and the dependent variable \\(Y\\). The simplest case, **simple linear regression**, models this relationship with a line: \n\n\\[ Y = \\beta_0 + \\beta_1 X + \\epsilon, \\] \n\nwhere \\(\\beta_0\\) is the intercept, \\(\\beta_1\\) is the coefficient (slope) for the feature, and \\(\\epsilon\\) is an error term. In **multiple linear regression**, the model extends to \\(Y = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\cdots + \\beta_p X_p + \\epsilon\\), a linear combination of several features ([Linear regression - Wikipedia](https://en.wikipedia.org/wiki/Linear_regression#:~:text=general%20linear%20models%2C%20restricted%20to,for%20multiple%20linear%20regression%20is)). The goal is to find the parameters (\\(\\beta\\) coefficients) that **minimize the sum of squared errors** between the predicted and actual values of \\(Y\\) ([Least squares - Wikipedia](https://en.wikipedia.org/wiki/Least_squares#:~:text=In%20regression%20analysis%20%2C%20least,the%20points%20from%20the%20curve)). This is typically done via the **ordinary least squares (OLS)** method, which has a closed-form solution: \\(\\hat{\\beta} = (X^T X)^{-1}X^T y\\), or by iterative optimization (e.g. gradient descent) for large datasets. The method of least squares dates back to Legendre (1805) and Gauss (1809) ([Least squares - Wikipedia](https://en.wikipedia.org/wiki/Least_squares#:~:text=The%20least,4)), making linear regression one of the oldest and most studied models. Under the hood, OLS finds the line (or hyperplane in multiple dimensions) that best fits the data in a least-squares sense. This gives linear regression desirable statistical properties – under certain assumptions (linearity, unbiased errors with constant variance, etc.), the Gauss–Markov theorem states that OLS produces the **best linear unbiased estimator (BLUE)** of the coefficients ([Gauss–Markov theorem - Wikipedia](https://en.wikipedia.org/wiki/Gauss%E2%80%93Markov_theorem#:~:text=In%20statistics%20%2C%20the%20Gauss%E2%80%93Markov,cannot%20be%20dropped%2C%20since%20biased)). In practice, linear regression is valued for its **simplicity and interpretability**: each coefficient \\(\\beta_j\\) represents the expected change in \\(Y\\) for a one-unit change in \\(X_j\\), holding other factors constant. It was rigorously studied and applied in various fields throughout the 19th and 20th centuries ([Linear regression - Wikipedia](https://en.wikipedia.org/wiki/Linear_regression#:~:text=Linear%20regression%20is%20widely%20used,tools%20used%20in%20these%20disciplines)), and remains a fundamental tool for both prediction and inference.",
+            'markdown_description' => $markdownDescription,
             
             'limitations' => "**Assumptions and Failure Cases:** Linear regression relies on several key assumptions about the data. First, it assumes a **linear relationship** between predictors and outcome – if the true relationship is nonlinear, a straight-line model will underfit and produce systematic errors ([Common pitfalls in statistical analysis: Linear regression analysis - PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC5384397/#:~:text=Regression%20analysis%20makes%20several%20assumptions%2C,regression%20analysis%20may%20be%20misleading)). Second, it assumes the **observations are independent** of each other; if data points are correlated (e.g. time series data or clustered samples), the standard OLS solution may no longer be optimal or statistically valid ([Common pitfalls in statistical analysis: Linear regression analysis - PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC5384397/#:~:text=Regression%20analysis%20makes%20several%20assumptions%2C,regression%20analysis%20may%20be%20misleading)). Another important assumption is **homoscedasticity** – the variance of the error term \\(\\epsilon\\) should be constant across all levels of the independent variables ([Five Key Assumptions of Linear Regression Algorithm - Dataaspirant](https://dataaspirant.com/assumptions-of-linear-regression-algorithm/#:~:text=The%20fifth%20assumption%20of%20linear,values%20of%20the%20independent%20variables)). When errors have non-constant variance (heteroscedasticity), OLS estimates remain unbiased but are no longer the most efficient (and statistical inference like confidence intervals becomes unreliable). Linear regression also typically assumes that the errors (residuals) are **normally distributed** around the true regression line (this is mainly important for constructing confidence intervals and hypothesis tests; the OLS estimates themselves still are BLUE without normality as long as other assumptions hold ([Gauss–Markov theorem - Wikipedia](https://en.wikipedia.org/wiki/Gauss%E2%80%93Markov_theorem#:~:text=In%20statistics%20%2C%20the%20Gauss%E2%80%93Markov,cannot%20be%20dropped%2C%20since%20biased))). Additionally, the model assumes **low multicollinearity** among predictors – if two or more features are highly correlated, it becomes difficult to distinguish their individual effects, leading to large standard errors for coefficients and unstable estimates (small changes in data can cause large swings in the fitted coefficients). While multicollinearity doesn't reduce overall predictive power, it undermines the interpretability of the coefficients and can make the model more sensitive to sampling noise. Another limitation is that linear regression is **sensitive to outliers**. Because it minimizes squared errors, a single extreme outlier can heavily influence the fit (pulling the line toward that point) ([Common pitfalls in statistical analysis: Linear regression analysis - PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC5384397/#:~:text=Regression%20analysis%20makes%20several%20assumptions%2C,regression%20analysis%20may%20be%20misleading)). Outliers can thus distort predictions and lead to misleading coefficients if not handled (for example, an anomalously high value of \\(Y\\) can dramatically increase the estimated slope). If the dataset contains a few such influential points, the model may effectively 'fail' to represent the typical trend ([Common pitfalls in statistical analysis: Linear regression analysis - PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC5384397/#:~:text=Regression%20analysis%20makes%20several%20assumptions%2C,regression%20analysis%20may%20be%20misleading)).\n\n" .
 "**Where Linear Regression Fails:** Linear regression performs poorly when its fundamental assumptions are violated. In scenarios with a nonlinear relationship, a linear model will underfit – for instance, trying to fit a straight line to data that follow a quadratic curve will yield large errors and low \\(R^2\\). It also struggles with **complex interactions** between features unless those are explicitly included in the model. In high-dimensional settings (when the number of features \\(p\\) is close to or exceeds the number of observations \\(n\\)), ordinary least squares can overfit badly or even be impossible (if \\(p>n\\), the design matrix \\(X^T X\\) is singular and the normal equation can't be solved without regularization). OLS has no built-in mechanism for feature selection or regularization, so it will **overfit** in the presence of many predictors, especially if some are irrelevant. This can result in a model that fits the training data well but generalizes poorly to new data. Moreover, linear regression is not suitable for outcomes that are **categorical** (binary or multi-class outcomes) – using it in such cases (sometimes called a 'linear probability model' when applied to binary data) can lead to predictions outside the valid range (e.g. probabilities less than 0 or greater than 1) and typically violates the homoscedasticity assumption ([Assumptions of Logistic Regression - Statistics Solutions](https://www.statisticssolutions.com/free-resources/directory-of-statistical-analyses/assumptions-of-logistic-regression/#:~:text=First%2C%20logistic%20regression%20does%20not,an%20interval%20or%20ratio%20scale)). Another limitation is **extrapolation**: linear models can give unrealistic predictions if asked to forecast beyond the range of the training data. Since the model is unbounded (a line goes to \\(\\pm\\infty\\)), it may predict negative values for something that should be positive, or otherwise nonsensical outcomes, when \\(X\\) is outside the observed domain. For example, using a linear model for growth data and extrapolating far beyond the observed ages could predict negative height, which is clearly invalid. Finally, linear regression assumes that predictor variables are measured without error and that the model is correctly specified (no important predictors omitted, no superfluous ones included). Violations of these (omitted variable bias or measurement error in \\(X\\)) can also degrade performance: omitted relevant variables can cause bias in the coefficients of included variables, and including irrelevant variables can increase variance and yield unreliable estimates ([Common pitfalls in statistical analysis: Logistic regression - PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC5543767/#:~:text=The%20key%20to%20a%20successful,10%2C%20instead%20of%20the)). In summary, linear regression's weaknesses are most pronounced when dealing with **nonlinear relationships, heteroscedastic or autocorrelated errors, strong multicollinearity, outliers, and situations requiring categorical outputs or complex interactions**. In such cases, alternative modeling approaches or remedial measures are necessary to avoid misleading results.",
@@ -91,20 +192,6 @@ class LinearRegressionSeeder extends Seeder
                 "Linear regression's strength is in scenarios where the underlying trend is expected to be linear or near-linear and where **interpretability** is important. Decision makers often prefer a simple linear equation that they can understand (even if a complex model might fit better). Moreover, linear models are fast to train and require relatively little data compared to more complex models. In the era of big data, linear regression remains relevant – for example, **forecasting** problems in tech companies might start with a linear trend + seasonal effects model. Even in advanced machine learning pipelines, linear regression appears as a component (e.g., the final layer of a neural network for regression is essentially a linear combination). Finally, linear regression is used for **control and calibration** – many devices and protocols rely on linear models to convert measured signals to calibrated values (because linear functions are easy to invert and interpret).\n\n" .
                 "In summary, whenever one has a continuous outcome and wants either a quick predictive model or to quantify the influence of factors, linear regression is often the first and a very effective tool. It has been applied in fields from agriculture to zoology – basically anywhere relationships between quantitative variables are studied.",
             
-            'research_papers_summary' => "Linear regression and logistic regression have rich historical and academic foundations. Here are some foundational and significant papers (and books) that introduced, formalized, or analyzed these models:\n\n" .
-                "**Linear Regression:**\n" .
-                "- *Adrien-Marie Legendre (1805)* – **'Nouvelles méthodes pour la détermination des orbites des comètes'**. In this work, Legendre introduced the **method of least squares**, laying the groundwork for linear regression ([Least squares - Wikipedia](https://en.wikipedia.org/wiki/Least_squares#:~:text=The%20least,4)). He applied it to astronomical data. This is one of the earliest publications of the least squares principle.\n\n" .
-                "- *Carl Friedrich Gauss (1809)* – **'Theoria Motus'** (published in 1809, in Latin). Gauss also developed least squares independently and applied it to planetary orbits. He provided a probabilistic justification (assuming normally distributed errors) and advanced the theory ([Least squares - Wikipedia](https://en.wikipedia.org/wiki/Least_squares#:~:text=The%20least,4)). While not a 'paper' in modern sense, Gauss's work is foundational; he also later formulated the **Gauss-Markov theorem**.\n\n" .
-                "- **Gauss-Markov Theorem** – Andrey Markov (1900s) formalized what is now known as the Gauss-Markov theorem: under the linear model assumptions (linearity, expectation of errors zero, errors uncorrelated and homoscedastic), the OLS estimator is the Best Linear Unbiased Estimator (BLUE) ([Gauss–Markov theorem - Wikipedia](https://en.wikipedia.org/wiki/Gauss%E2%80%93Markov_theorem#:~:text=In%20statistics%20%2C%20the%20Gauss%E2%80%93Markov,cannot%20be%20dropped%2C%20since%20biased)). A reference: *A. Markov (1908)* – though often cited via later textbooks. This theorem is fundamental in linear regression theory ([Gauss–Markov theorem - Wikipedia](https://en.wikipedia.org/wiki/Gauss%E2%80%93Markov_theorem#:~:text=In%20statistics%20%2C%20the%20Gauss%E2%80%93Markov,cannot%20be%20dropped%2C%20since%20biased)).\n\n" .
-                "- *Sir Francis Galton (1886)* – **'Regression Towards Mediocrity in Hereditary Stature'**. This is a classic paper where Galton analyzed the heights of parents and children, introducing the term 'regression' and the concept of **regression to the mean** ([Linear regression - Wikipedia](https://en.wikipedia.org/wiki/Linear_regression#:~:text=13.%20,2307%2F2841583)). Galton's work was pivotal in statistics and biometry, showing the application of linear regression in social science and heredity.\n\n" .
-                "- *R. A. Fisher (1922)* – **'On the Mathematical Foundations of Theoretical Statistics'**. Fisher's work wasn't directly introducing linear regression, but he developed the statistical inference framework (likelihood, estimation, etc.) that solidified regression analysis. Fisher also introduced the idea of analysis of variance (ANOVA) which is closely related to regression.\n\n" .
-                "- *Daniel A. Seek, George Udny Yule (1897 & 1907)* – Yule's 1897 paper on the regression of poverty and 1907 book 'Introduction to the Theory of Statistics' included early uses of multiple regression in social sciences.\n\n" .
-                "- *Draper, N.R. and Smith, H.* – **'Applied Regression Analysis'** (1966, Wiley). While a book, not a paper, it's a classic text that compiles and explains regression techniques. It's often cited in academic works for regression examples and methods.\n\n" .
-                "- *Hoerl, A.E. and Kennard, R.W. (1970)* – **'Ridge Regression: Biased Estimation for Nonorthogonal Problems'**. This is the paper that introduced **ridge regression**, an extension of linear regression addressing multicollinearity by adding a bias ([Gauss–Markov theorem - Wikipedia](https://en.wikipedia.org/wiki/Gauss%E2%80%93Markov_theorem#:~:text=uncorrelated%20%20with%20mean%20zero,or%20simply%20any%20degenerate%20estimator)).\n\n" .
-                "- *Tibshirani, R. (1996)* – **'Regression Shrinkage and Selection via the Lasso'**. Introduced the **Lasso** method, adding to the regression toolkit the ability to perform variable selection with \\(L1\\) penalty.\n\n" .
-                "For a broad historical perspective: *Stigler, Stephen M. (1986)* – **'The History of Statistics'** covers the development of regression and statistics including Gauss and Legendre's contributions.\n\n" .
-                "These references show the lineage and development of these methods from origin to modern refinements.",
-            
             'related_models_description' => "Linear regression has several key related models and extensions:\n\n" .
                 "1. **Direct Extensions**:\n" .
                 "   - Ridge Regression (L2 regularization)\n" .
@@ -150,6 +237,56 @@ class LinearRegressionSeeder extends Seeder
             'license' => 'Open Source',
             'maintainers_authors' => 'Various - Standard Statistical/ML Algorithm',
         ]);
+
+        // Attach tasks and use cases
+        $model->tasks()->attach($taskIds);
+        $model->useCases()->attach($useCaseIds);
+
+        // Create Research Papers
+        $papers = [
+            [
+                'title' => 'Nouvelles méthodes pour la détermination des orbites des comètes',
+                'authors' => 'Adrien-Marie Legendre',
+                'publication_date' => '1805-01-01',
+                'url' => 'https://en.wikipedia.org/wiki/Least_squares#History'
+            ],
+            [
+                'title' => 'Theoria Motus',
+                'authors' => 'Carl Friedrich Gauss',
+                'publication_date' => '1809-01-01',
+                'url' => 'https://en.wikipedia.org/wiki/Least_squares#History'
+            ],
+            [
+                'title' => 'Regression Towards Mediocrity in Hereditary Stature',
+                'authors' => 'Sir Francis Galton',
+                'publication_date' => '1886-01-01',
+                'url' => 'https://en.wikipedia.org/wiki/Linear_regression#History'
+            ],
+            [
+                'title' => 'On the Mathematical Foundations of Theoretical Statistics',
+                'authors' => 'R. A. Fisher',
+                'publication_date' => '1922-01-01',
+                'url' => 'https://en.wikipedia.org/wiki/Linear_regression#History'
+            ],
+            [
+                'title' => 'Ridge Regression: Biased Estimation for Nonorthogonal Problems',
+                'authors' => 'A.E. Hoerl, R.W. Kennard',
+                'publication_date' => '1970-01-01',
+                'url' => 'https://en.wikipedia.org/wiki/Ridge_regression#History'
+            ],
+            [
+                'title' => 'Regression Shrinkage and Selection via the Lasso',
+                'authors' => 'R. Tibshirani',
+                'publication_date' => '1996-01-01',
+                'url' => 'https://en.wikipedia.org/wiki/Lasso_(statistics)#History'
+            ]
+        ];
+
+        $paperIds = [];
+        foreach ($papers as $paper) {
+            $paperIds[] = ResearchPaper::create($paper)->id;
+        }
+        $model->researchPapers()->attach($paperIds);
 
         // Create Implementation Guidance
         ImplementationGuidance::create([
@@ -329,7 +466,7 @@ class LinearRegressionSeeder extends Seeder
                 "   - Backup models\n" .
                 "   - Review performance",
             
-            'a_i_model_id' => $model->id
+            'ai_model_id' => $model->id
         ]);
     }
 } 

@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\ImplementationGuidance;
-use App\Models\AIModel;
+use App\Models\AiModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -14,19 +14,19 @@ class ImplementationGuidanceTest extends TestCase
     /** @test */
     public function it_can_create_implementation_guidance()
     {
-        $model = AIModel::factory()->create();
+        $model = AiModel::factory()->create();
         $guidance = ImplementationGuidance::create([
             'title' => 'Best Practices',
             'description' => 'Detailed implementation guide',
             'best_practices' => 'Follow these steps...',
             'code_example' => 'def example(): pass',
             'performance_benchmarks' => '100ms latency',
-            'a_i_model_id' => $model->id
+            'ai_model_id' => $model->id
         ]);
 
         $this->assertDatabaseHas('implementation_guidances', [
             'title' => 'Best Practices',
-            'a_i_model_id' => $model->id
+            'ai_model_id' => $model->id
         ]);
     }
 
@@ -44,12 +44,12 @@ class ImplementationGuidanceTest extends TestCase
     /** @test */
     public function it_belongs_to_a_model()
     {
-        $model = AIModel::factory()->create();
+        $model = AiModel::factory()->create();
         $guidance = ImplementationGuidance::factory()->create([
-            'a_i_model_id' => $model->id
+            'ai_model_id' => $model->id
         ]);
 
-        $this->assertInstanceOf(AIModel::class, $guidance->model);
+        $this->assertInstanceOf(AiModel::class, $guidance->model);
         $this->assertEquals($model->id, $guidance->model->id);
     }
 

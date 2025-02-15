@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('a_i_models', function (Blueprint $table) {
+        Schema::create('ai_models', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('markdown_description')->nullable();
@@ -36,8 +36,8 @@ return new class extends Migration
 
         Schema::create('related_models', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('model_id1')->constrained('a_i_models')->onDelete('cascade');
-            $table->foreignId('model_id2')->constrained('a_i_models')->onDelete('cascade');
+            $table->foreignId('model_id1')->constrained('ai_models')->onDelete('cascade');
+            $table->foreignId('model_id2')->constrained('ai_models')->onDelete('cascade');
             $table->string('relationship_type')->nullable();
             $table->timestamps();
         });
@@ -49,6 +49,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('related_models');
-        Schema::dropIfExists('a_i_models');
+        Schema::dropIfExists('ai_models');
     }
 };

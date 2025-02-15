@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\AIModel;
+use App\Models\AiModel;
 use App\Models\AlgorithmType;
 use App\Models\DataType;
 use App\Models\Framework;
@@ -13,14 +13,14 @@ use App\Models\UseCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class AIModelTest extends TestCase
+class AiModelTest extends TestCase
 {
     use RefreshDatabase;
 
     #[Test]
     public function it_can_create_an_ai_model(): void
     {
-        $model = AIModel::factory()->create([
+        $model = AiModel::factory()->create([
             'name' => 'Test Model',
             'markdown_description' => 'Test description',
         ]);
@@ -37,7 +37,7 @@ class AIModelTest extends TestCase
     {
         $this->expectException(\Illuminate\Database\QueryException::class);
         
-        AIModel::factory()->create([
+        AiModel::factory()->create([
             'name' => null,
             'markdown_description' => null,
         ]);
@@ -46,7 +46,7 @@ class AIModelTest extends TestCase
     #[Test]
     public function it_can_have_tasks(): void
     {
-        $model = AIModel::factory()->create();
+        $model = AiModel::factory()->create();
         $task = Task::factory()->create();
 
         $model->tasks()->attach($task);
@@ -58,7 +58,7 @@ class AIModelTest extends TestCase
     #[Test]
     public function it_can_have_data_types(): void
     {
-        $model = AIModel::factory()->create();
+        $model = AiModel::factory()->create();
         $dataType = DataType::factory()->create();
 
         $model->dataTypes()->attach($dataType);
@@ -70,7 +70,7 @@ class AIModelTest extends TestCase
     #[Test]
     public function it_can_have_algorithm_types(): void
     {
-        $model = AIModel::factory()->create();
+        $model = AiModel::factory()->create();
         $algorithmType = AlgorithmType::factory()->create();
 
         $model->algorithmTypes()->attach($algorithmType);
@@ -82,7 +82,7 @@ class AIModelTest extends TestCase
     #[Test]
     public function it_can_have_frameworks(): void
     {
-        $model = AIModel::factory()->create();
+        $model = AiModel::factory()->create();
         $framework = Framework::factory()->create();
 
         $model->frameworks()->attach($framework);
@@ -94,9 +94,9 @@ class AIModelTest extends TestCase
     #[Test]
     public function it_can_have_implementation_guidance(): void
     {
-        $model = AIModel::factory()->create();
+        $model = AiModel::factory()->create();
         $guidance = ImplementationGuidance::factory()->create([
-            'aimodel_id' => $model->id
+            'AiModel_id' => $model->id
         ]);
 
         $this->assertInstanceOf(ImplementationGuidance::class, $model->implementationGuidance);
@@ -105,9 +105,9 @@ class AIModelTest extends TestCase
     #[Test]
     public function it_can_have_research_papers(): void
     {
-        $model = AIModel::factory()->create();
+        $model = AiModel::factory()->create();
         $paper = ResearchPaper::factory()->create([
-            'aimodel_id' => $model->id
+            'AiModel_id' => $model->id
         ]);
 
         $this->assertCount(1, $model->researchPapers);
@@ -117,8 +117,8 @@ class AIModelTest extends TestCase
     #[Test]
     public function it_can_have_related_models(): void
     {
-        $model1 = AIModel::factory()->create();
-        $model2 = AIModel::factory()->create();
+        $model1 = AiModel::factory()->create();
+        $model2 = AiModel::factory()->create();
 
         $model1->relatedModels()->attach($model2, ['relationship_type' => 'similar']);
 
@@ -129,9 +129,9 @@ class AIModelTest extends TestCase
     #[Test]
     public function it_can_have_use_cases(): void
     {
-        $model = AIModel::factory()->create();
+        $model = AiModel::factory()->create();
         $useCase = UseCase::factory()->create([
-            'aimodel_id' => $model->id
+            'AiModel_id' => $model->id
         ]);
 
         $this->assertCount(1, $model->useCases);
@@ -141,7 +141,7 @@ class AIModelTest extends TestCase
     #[Test]
     public function it_casts_attributes_correctly(): void
     {
-        $model = AIModel::factory()->create([
+        $model = AiModel::factory()->create([
             'is_gpu_accelerated' => true,
             'date_added' => '2023-01-01 00:00:00',
         ]);

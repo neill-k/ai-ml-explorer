@@ -1,69 +1,171 @@
 <x-main-layout>
-    <div class="bg-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    {{ $model->name }}
-                </h2>
-                <div class="flex gap-4">
-                    @auth
-                        <x-button href="{{ route('models.edit', $model) }}" class="bg-primary-600 hover:bg-primary-700">
-                            {{ __('Edit') }}
-                        </x-button>
-                    @endauth
-                    <x-button href="{{ route('models.index') }}" class="bg-gray-500 hover:bg-gray-600">
-                        {{ __('Back to List') }}
-                    </x-button>
-                </div>
-            </div>
+<flux:card class="drop-shadow-lg">
 
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="p-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <h3 class="text-lg font-semibold mb-4">{{ __('Model Details') }}</h3>
-                            <dl class="grid grid-cols-1 gap-4">
-                                <div>
-                                    <dt class="text-sm font-medium text-gray-500">{{ __('License') }}</dt>
+    <div class="flex justify-between items-center">
+        <flux:heading size="xl" level="1">
+            {{ $model->name }}
+        </flux:heading>
+
+        <flux:button href="{{ route('models.index') }}">
+            {{ __('Back to List') }}
+        </flux:button>
+    </div>
+
+    <div class="mt-8">
+        <flux:tab.group>
+            <flux:tabs class="px-4">
+                <flux:tab name="overview" icon="document-text">Overview</flux:tab>
+                @if($model->tasks && $model->tasks->count() > 0)
+                    <flux:tab name="tasks" icon="check-circle">Tasks</flux:tab>
+                @endif
+                @if($model->useCases && $model->useCases->count() > 0)
+                    <flux:tab name="use-cases" icon="light-bulb">Use Cases</flux:tab>
+                @endif
+                @if($model->researchPapers && $model->researchPapers->count() > 0)
+                    <flux:tab name="papers" icon="academic-cap">Research Papers</flux:tab>
+                @endif
+            </flux:tabs>
+
+            <flux:tab.panel name="overview">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-6">
+                        <flux:container>
+                            <flux:heading level="2" size="lg" class="mb-4">
+                                {{ __('Description') }}
+                            </flux:heading>
+                            {!! Str::markdown($model->markdown_description) !!}
+                        </flux:container>
+
+                       
+                    </div>
+
+                    <div class="space-y-6">
+                        <flux:container>
+                            <flux:heading level="2" size="lg" class="mb-4">
+                                {{ __('Model Details') }}
+                            </flux:heading>
+                            
+                            <dl class="divide-y">
+                                <div class="py-4">
+                                    <dt>{{ __('License') }}</dt>
                                     <dd class="mt-1">{{ $model->license }}</dd>
                                 </div>
-                                <div>
-                                    <dt class="text-sm font-medium text-gray-500">{{ __('Maintainers/Authors') }}</dt>
+
+
+                                <div class="py-4">
+                                    <dt>{{ __('Maintainers/Authors') }}</dt>
                                     <dd class="mt-1">{{ $model->maintainers_authors }}</dd>
                                 </div>
-                                <div>
-                                    <dt class="text-sm font-medium text-gray-500">{{ __('Last Updated') }}</dt>
+
+
+                                <div class="py-4">
+                                    <dt>{{ __('Last Updated') }}</dt>
                                     <dd class="mt-1">{{ $model->date_updated?->diffForHumans() }}</dd>
                                 </div>
-                                <div>
-                                    <dt class="text-sm font-medium text-gray-500">{{ __('GPU Accelerated') }}</dt>
+
+                                <div class="py-4">
+                                    <dt>{{ __('GPU Accelerated') }}</dt>
                                     <dd class="mt-1">
                                         @if($model->is_gpu_accelerated)
-                                            <x-badge color="success">Yes</x-badge>
+                                            <flux:badge color="success">Yes</flux:badge>
                                         @else
-                                            <x-badge color="gray">No</x-badge>
+                                            <flux:badge color="gray">No</flux:badge>
                                         @endif
                                     </dd>
                                 </div>
-                                <div>
-                                    <dt class="text-sm font-medium text-gray-500">{{ __('Interpretability Score') }}</dt>
+
+                                <div class="py-4">
+                                    <dt>{{ __('Interpretability Score') }}</dt>
                                     <dd class="mt-1">
-                                        <x-badge :color="$model->interpretability_score >= 7 ? 'success' : ($model->interpretability_score >= 4 ? 'warning' : 'danger')">
+                                        <flux:badge :color="$model->interpretability_score >= 7 ? 'success' : ($model->interpretability_score >= 4 ? 'warning' : 'danger')">
                                             {{ $model->interpretability_score }}/10
-                                        </x-badge>
+
+                                        </flux:badge>
                                     </dd>
                                 </div>
                             </dl>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold mb-4">{{ __('Description') }}</h3>
-                            <div class="prose max-w-none">
-                                {!! Str::markdown($model->markdown_description) !!}
-                            </div>
-                        </div>
+                        </flux:container>
                     </div>
                 </div>
-            </div>
-        </div>
+            </flux:tab.panel>
+
+            @if($model->tasks && $model->tasks->count() > 0)
+                <flux:tab.panel name="tasks">
+                    <flux:container>
+                        <ul class="divide-y">
+                            @foreach($model->tasks as $task)
+                                <li class="py-4">
+                                    <div class="flex items-start gap-4">
+                                        <flux:icon name="check-circle" class="shrink-0" />
+                                        <div>
+                                            <div class="font-medium">{{ $task->name }}</div>
+                                            @if($task->description)
+                                                <div class="mt-1 text-sm">{{ $task->description }}</div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </flux:container>
+                </flux:tab.panel>
+            @endif
+
+            @if($model->useCases && $model->useCases->count() > 0)
+                <flux:tab.panel name="use-cases">
+                    <flux:container>
+                        <ul class="divide-y">
+                            @foreach($model->useCases as $useCase)
+                                <li class="py-4">
+                                    <div class="flex items-start gap-4">
+                                        <flux:icon name="light-bulb" class="shrink-0" />
+                                        <div>
+                                            <div class="font-medium">{{ $useCase->name }}</div>
+                                            @if($useCase->description)
+                                                <div class="mt-1 text-sm">{{ $useCase->description }}</div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </flux:container>
+                </flux:tab.panel>
+            @endif
+
+            @if($model->researchPapers && $model->researchPapers->count() > 0)
+                <flux:tab.panel name="papers">
+                    <flux:container>
+                        <ul class="divide-y">
+                            @foreach($model->researchPapers as $paper)
+                                <li class="py-4">
+                                    <div class="flex items-start gap-4">
+                                        <flux:icon name="academic-cap" class="shrink-0" />
+                                        <div>
+                                            <div class="font-medium">
+                                                @if($paper->url)
+                                                    <a href="{{ $paper->url }}" target="_blank" class="text-primary-600 hover:text-primary-500">
+                                                        {{ $paper->title }}
+                                                    </a>
+                                                @else
+                                                    {{ $paper->title }}
+                                                @endif
+                                            </div>
+                                            <div class="mt-1 text-sm text-gray-600">
+                                                {{ $paper->authors }}
+                                                @if($paper->publication_date)
+                                                    <span class="text-gray-400"> · {{ $paper->publication_date->format('Y') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </flux:container>
+                </flux:tab.panel>
+            @endif
+        </flux:tab.group>
     </div>
+</flux:card>
 </x-main-layout> 

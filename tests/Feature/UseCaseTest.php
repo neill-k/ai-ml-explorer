@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\UseCase;
-use App\Models\AIModel;
+use App\Models\AiModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -35,7 +35,7 @@ class UseCaseTest extends TestCase
     public function it_can_have_models()
     {
         $useCase = UseCase::factory()->create();
-        $model = AIModel::factory()->create();
+        $model = AiModel::factory()->create();
 
         $useCase->models()->attach($model);
 

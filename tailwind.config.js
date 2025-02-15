@@ -27,6 +27,9 @@ export default {
                     foreground: 'var(--color-accent-foreground)',
                 },
             },
+            textColor: {
+                emphasis: 'var(--color-zinc-900)',
+            },
         },
     },
 

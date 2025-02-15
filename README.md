@@ -8,7 +8,7 @@ The system is built around several core models that represent different aspects 
 
 ### Main Models
 
-#### AIModel
+#### AiModel
 - Represents an AI/ML model
 - Relationships:
   - **Tasks**: Many-to-many relationship with Task model (what the model can do)
@@ -23,31 +23,31 @@ The system is built around several core models that represent different aspects 
 
 #### Task
 - Represents specific tasks an AI/ML model can perform
-- Many-to-many relationship with AIModel
+- Many-to-many relationship with AiModel
 
 #### DataType
 - Represents data types that AI/ML models can work with
-- Many-to-many relationship with AIModel
+- Many-to-many relationship with AiModel
 
 #### AlgorithmType
 - Represents different algorithm types used in AI/ML models
-- Many-to-many relationship with AIModel
+- Many-to-many relationship with AiModel
 
 #### Framework
 - Represents frameworks used to implement AI/ML models
-- Many-to-many relationship with AIModel
+- Many-to-many relationship with AiModel
 
 #### ImplementationGuidance
 - Provides implementation details and guidance for a specific AI model
-- One-to-one relationship with AIModel
+- One-to-one relationship with AiModel
 
 #### ResearchPaper
 - Represents research papers related to AI/ML models
-- Many-to-many relationship with AIModel
+- Many-to-many relationship with AiModel
 
 #### UseCase
 - Represents practical use cases for AI/ML models
-- Many-to-many relationship with AIModel
+- Many-to-many relationship with AiModel
 
 ### Pivot Tables
 
@@ -62,13 +62,13 @@ The system uses several pivot tables to manage many-to-many relationships:
 
 ```mermaid
 erDiagram
-    AIModel ||--o{ ImplementationGuidance : has
-    AIModel }o--o{ Task : performs
-    AIModel }o--o{ DataType : works_with
-    AIModel }o--o{ AlgorithmType : uses
-    AIModel }o--o{ Framework : built_with
-    AIModel ||--o{ ResearchPaper : references
-    AIModel ||--o{ UseCase : implements
+    AiModel ||--o{ ImplementationGuidance : has
+    AiModel }o--o{ Task : performs
+    AiModel }o--o{ DataType : works_with
+    AiModel }o--o{ AlgorithmType : uses
+    AiModel }o--o{ Framework : built_with
+    AiModel ||--o{ ResearchPaper : references
+    AiModel ||--o{ UseCase : implements
 ```
 
 This structure provides a flexible way to organize and explore AI/ML models and their characteristics.

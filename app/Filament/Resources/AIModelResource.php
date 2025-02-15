@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AIModelResource\Pages;
-use App\Filament\Resources\AIModelResource\RelationManagers;
-use App\Models\AIModel;
+use App\Filament\Resources\AiModelResource\Pages;
+use App\Filament\Resources\AiModelResource\RelationManagers;
+use App\Models\AiModel;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -20,18 +20,18 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\AIModelResource\RelationManagers\TasksRelationManager;
-use App\Filament\Resources\AIModelResource\RelationManagers\DataTypesRelationManager;
-use App\Filament\Resources\AIModelResource\RelationManagers\AlgorithmTypesRelationManager;
-use App\Filament\Resources\AIModelResource\RelationManagers\FrameworksRelationManager;
-use App\Filament\Resources\AIModelResource\RelationManagers\ImplementationGuidanceRelationManager;
-use App\Filament\Resources\AIModelResource\RelationManagers\ResearchPapersRelationManager;
-use App\Filament\Resources\AIModelResource\RelationManagers\RelatedModelsRelationManager;
-use App\Filament\Resources\AIModelResource\RelationManagers\UseCasesRelationManager;
+use App\Filament\Resources\AiModelResource\RelationManagers\TasksRelationManager;
+use App\Filament\Resources\AiModelResource\RelationManagers\DataTypesRelationManager;
+use App\Filament\Resources\AiModelResource\RelationManagers\AlgorithmTypesRelationManager;
+use App\Filament\Resources\AiModelResource\RelationManagers\FrameworksRelationManager;
+use App\Filament\Resources\AiModelResource\RelationManagers\ImplementationGuidanceRelationManager;
+use App\Filament\Resources\AiModelResource\RelationManagers\ResearchPapersRelationManager;
+use App\Filament\Resources\AiModelResource\RelationManagers\RelatedModelsRelationManager;
+use App\Filament\Resources\AiModelResource\RelationManagers\UseCasesRelationManager;
 
-class AIModelResource extends Resource
+class AiModelResource extends Resource
 {
-    protected static ?string $model = AIModel::class;
+    protected static ?string $model = AiModel::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -78,8 +78,6 @@ public static function form(Form $form): Form
                         ->label('Algorithm Description'),
                     MarkdownEditor::make('tasks_description')
                         ->label('Tasks Description'),
-                    MarkdownEditor::make('research_papers_summary')
-                        ->label('Research Papers Summary'),
                     MarkdownEditor::make('related_models_description')
                         ->label('Related Models Description'),
                 ]),
@@ -122,9 +120,9 @@ public static function getRelations(): array
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAIModels::route('/'),
-            'create' => Pages\CreateAIModel::route('/create'),
-            'edit' => Pages\EditAIModel::route('/{record}/edit'),
+            'index' => Pages\ListAiModels::route('/'),
+            'create' => Pages\CreateAiModel::route('/create'),
+            'edit' => Pages\EditAiModel::route('/{record}/edit'),
         ];
     }
 }

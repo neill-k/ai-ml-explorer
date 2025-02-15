@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('optimization_tips')->nullable();
             $table->text('debugging_guidance')->nullable();
             $table->text('deployment_considerations')->nullable();
-            $table->unsignedBigInteger('a_i_model_id')->nullable();
+            $table->foreignId('ai_model_id')->nullable()->constrained('ai_models')->onDelete('cascade');
             $table->timestamps();
         });
     }

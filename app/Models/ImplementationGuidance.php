@@ -18,11 +18,11 @@ class ImplementationGuidance extends Model
         'best_practices',
         'code_example',
         'performance_benchmarks',
-        'a_i_model_id',
+        'ai_model_id',
     ];
 
     public function model(): BelongsTo
     {
-        return $this->belongsTo(AIModel::class, 'a_i_model_id');
+        return $this->belongsTo(AiModel::class, 'ai_model_id');
     }
 }

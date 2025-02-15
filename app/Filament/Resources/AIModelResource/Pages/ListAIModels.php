@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\AIModelResource\Pages;
+namespace App\Filament\Resources\AiModelResource\Pages;
 
-use App\Filament\Resources\AIModelResource;
+use App\Filament\Resources\AiModelResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListAIModels extends ListRecords
+class ListAiModels extends ListRecords
 {
-    protected static string $resource = AIModelResource::class;
+    protected static string $resource = AiModelResource::class;
 
     protected function getHeaderActions(): array
     {

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\AIModelResource\Pages;
+namespace App\Filament\Resources\AiModelResource\Pages;
 
-use App\Filament\Resources\AIModelResource;
+use App\Filament\Resources\AiModelResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreateAIModel extends CreateRecord
+class CreateAiModel extends CreateRecord
 {
-    protected static string $resource = AIModelResource::class;
+    protected static string $resource = AiModelResource::class;
 }

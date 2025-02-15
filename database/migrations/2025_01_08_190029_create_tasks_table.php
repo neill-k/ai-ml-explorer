@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
 
         Schema::create('model_tasks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('a_i_model_id')->constrained()->onDelete('cascade');
+            $table->foreignId('ai_model_id')->constrained('ai_models')->onDelete('cascade');
             $table->foreignId('task_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

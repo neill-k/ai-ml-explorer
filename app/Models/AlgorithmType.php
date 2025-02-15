@@ -14,6 +14,6 @@ class AlgorithmType extends Model
 
     public function models(): BelongsToMany
     {
-        return $this->belongsToMany(AIModel::class, 'model_algorithm_types');
+        return $this->belongsToMany(AiModel::class, 'model_algorithm_types');
     }
 }

@@ -15,6 +15,6 @@ class UseCase extends Model
 
     public function models(): BelongsToMany
     {
-        return $this->belongsToMany(AIModel::class, 'model_use_cases');
+        return $this->belongsToMany(AiModel::class, 'model_use_cases');
     }
 }

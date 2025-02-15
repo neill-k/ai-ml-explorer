@@ -2,11 +2,11 @@
 
 namespace App\Livewire;
 
-use App\Models\AIModel;
+use App\Models\AiModel;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class AIModelList extends Component
+class AiModelList extends Component
 {
     use WithPagination;
 
@@ -26,7 +26,7 @@ class AIModelList extends Component
     #[\Livewire\Attributes\Computed]
     public function models()
     {
-        return AIModel::query()
+        return AiModel::query()
             ->tap(fn ($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
             ->paginate(10);
     }

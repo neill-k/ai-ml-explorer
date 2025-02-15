@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\AIModel;
+use App\Models\AiModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -34,7 +34,7 @@ class ImplementationGuidanceFactory extends Factory
             'performance_benchmarks' => "Training Time: " . fake()->numberBetween(1, 24) . " hours\n" .
                                      "Accuracy: " . fake()->numberBetween(85, 99) . "%\n" .
                                      "GPU Memory Usage: " . fake()->numberBetween(2, 16) . "GB",
-            'a_i_model_id' => AIModel::factory(),
+            'ai_model_id' => AiModel::factory(),
         ];
     }
 }

@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('model_algorithm_types', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('ai_model_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('algorithm_type_id')->constrained()->cascadeOnDelete();
-            $table->timestamps();
+        Schema::table('ai_models', function (Blueprint $table) {
+            $table->dropColumn('research_papers_summary');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('model_algorithm_types');
+        Schema::table('ai_models', function (Blueprint $table) {
+            $table->text('research_papers_summary')->nullable();
+        });
     }
 };

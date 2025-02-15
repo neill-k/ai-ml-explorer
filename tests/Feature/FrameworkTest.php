@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Framework;
-use App\Models\AIModel;
+use App\Models\AiModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -33,7 +33,7 @@ class FrameworkTest extends TestCase
     public function it_can_have_models()
     {
         $framework = Framework::factory()->create();
-        $model = AIModel::factory()->create();
+        $model = AiModel::factory()->create();
 
         $framework->models()->attach($model);
 

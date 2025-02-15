@@ -10,10 +10,10 @@ class Task extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'description'];
 
     public function models(): BelongsToMany
     {
-        return $this->belongsToMany(AIModel::class, 'model_tasks');
+        return $this->belongsToMany(AiModel::class, 'model_tasks');
     }
 }

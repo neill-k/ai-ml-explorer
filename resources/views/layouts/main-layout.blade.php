@@ -6,11 +6,30 @@
 
         <title>AI/ML Explorer</title>
 
+        <!-- KaTeX -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false},
+                        {left: '\\(', right: '\\)', display: false},
+                        {left: '\\[', right: '\\]', display: true}
+                    ],
+                    throwOnError : false
+                });
+            });
+        </script>
+
         <!-- Styles / Scripts -->
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
             @vite(['resources/css/app.css', 'resources/js/app.js'])
         @else
-
+            <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+            <script src="{{ asset('js/app.js') }}" defer></script>
         @endif
         @fluxStyles()
     </head>
@@ -23,10 +42,10 @@
             <flux:input as="button" variant="filled" placeholder="Search..." icon="magnifying-glass" />
     
             <flux:navlist variant="outline">
-                <flux:navlist.item icon="home" href="#" current>Home</flux:navlist.item>
-                <flux:navlist.item icon="queue-list" href="/models">Model List</flux:navlist.item>
-                <flux:navlist.item icon="academic-cap" href="/tasks">Research Tasks</flux:navlist.item>
-                <flux:navlist.item icon="rectangle-group" href="/families">Model Families</flux:navlist.item>
+                <flux:navlist.item icon="home" href="/" @class(['current' => request()->is('/')])>Home</flux:navlist.item>
+                <flux:navlist.item icon="queue-list" href="/models" @class(['current' => request()->is('models')])>Model List</flux:navlist.item>
+                <flux:navlist.item icon="academic-cap" href="/tasks" @class(['current' => request()->is('tasks')])>Research Tasks</flux:navlist.item>
+                <flux:navlist.item icon="rectangle-group" href="/families" @class(['current' => request()->is('families')])>Model Families</flux:navlist.item>
     
             </flux:navlist>
     

@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class AIModel extends Model
+class AiModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'a_i_models';
+    protected $table = 'ai_models';
 
     protected $fillable = [
         'name',
@@ -31,7 +31,6 @@ class AIModel extends Model
         'training_data_size_estimate',
         'algorithm_description',
         'tasks_description',
-        'research_papers_summary',
         'related_models_description',
     ];
 
@@ -66,18 +65,18 @@ class AIModel extends Model
         return $this->hasOne(ImplementationGuidance::class);
     }
 
-    public function researchPapers(): HasMany
+    public function researchPapers(): BelongsToMany
     {
-        return $this->hasMany(ResearchPaper::class);
+        return $this->belongsToMany(ResearchPaper::class, 'model_research_papers');
     }
 
     public function relatedModels(): BelongsToMany
     {
-        return $this->belongsToMany(AIModel::class, 'related_models', 'model_id1', 'model_id2')->withPivot('relationship_type');
+        return $this->belongsToMany(AiModel::class, 'related_models', 'model_id1', 'model_id2')->withPivot('relationship_type');
     }
 
     public function useCases(): BelongsToMany
     {
-        return $this->belongsToMany(UseCase::class, 'model_use_cases');
+        return $this->belongsToMany(UseCase::class, 'ai_model_use_case', 'ai_model_id', 'use_case_id');
     }
 }

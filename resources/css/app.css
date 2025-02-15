@@ -17,4 +17,39 @@
         --color-accent-content: var(--color-violet-400);
         --color-accent-foreground: var(--color-white);
     }
+
+    /* Base heading styles */
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-medium text-zinc-800 dark:text-white mt-6 mb-2 [&:has(+[data-flux-subheading])]:mb-2 [[data-flux-subheading]+&]:mt-2;
+    }
+
+    h1 {
+        @apply text-2xl;
+    }
+
+    h2 {
+        @apply text-base;
+    }
+
+    h3 {
+        @apply text-sm;
+    }
+
+    h4 {
+        @apply text-sm;
+    }
+
+    h5, h6 {
+        @apply text-xs;
+    }
+
+    /* Paragraph styles */
+    p {
+        @apply text-zinc-600 dark:text-zinc-300 text-sm mt-1;
+    }
+
+    /* List item styles */
+    li {
+        @apply text-zinc-600 dark:text-zinc-300 text-sm mt-1;
+    }
 }

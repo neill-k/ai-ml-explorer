@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('use_cases', function (Blueprint $table) {
             $table->id();
-            $table->text('description');
+            $table->string('name')->unique();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
 
         Schema::create('model_use_cases', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('a_i_model_id')->constrained()->onDelete('cascade');
+            $table->foreignId('ai_model_id')->constrained('ai_models')->onDelete('cascade');
             $table->foreignId('use_case_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

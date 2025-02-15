@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\AIModelResource\RelationManagers;
+namespace App\Filament\Resources\AiModelResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Forms\Form;

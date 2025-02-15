@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\AlgorithmType;
-use App\Models\AIModel;
+use App\Models\AiModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -34,7 +34,7 @@ class AlgorithmTypeTest extends TestCase
     public function it_can_have_models(): void
     {
         $type = AlgorithmType::factory()->create();
-        $model = AIModel::factory()->create();
+        $model = AiModel::factory()->create();
 
         $type->models()->attach($model);
 

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\AIModel;
+use App\Models\AiModel;
 
 Route::get('/', function () {
     return view('welcome');
@@ -12,7 +12,8 @@ Route::get('/models', function () {
     return view('models.index');
 })->name('models.index');
 
-Route::get('/models/{model}', function (AIModel $model) {
+Route::get('/models/{model}', function (AiModel $model) {
+    $model->load(['tasks', 'useCases']);
     return view('models.show', compact('model'));
 })->name('models.show');
 

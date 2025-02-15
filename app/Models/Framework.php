@@ -14,6 +14,6 @@ class Framework extends Model
 
     public function models(): BelongsToMany
     {
-        return $this->belongsToMany(AIModel::class, 'model_frameworks');
+        return $this->belongsToMany(AiModel::class, 'model_frameworks');
     }
 }

@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Task;
-use App\Models\AIModel;
+use App\Models\AiModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -33,7 +33,7 @@ class TaskTest extends TestCase
     public function it_can_have_models()
     {
         $task = Task::factory()->create();
-        $model = AIModel::factory()->create();
+        $model = AiModel::factory()->create();
 
         $task->models()->attach($model);
 
