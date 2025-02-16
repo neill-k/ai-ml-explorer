@@ -98,7 +98,11 @@
                                     <div class="flex items-start gap-4">
                                         <flux:icon name="check-circle" class="shrink-0" />
                                         <div>
-                                            <div class="font-medium">{{ $task->name }}</div>
+                                            <div class="font-medium">
+                                                <a href="{{ route('tasks.show', $task) }}" class="hover:text-primary-600">
+                                                    {{ $task->name }}
+                                                </a>
+                                            </div>
                                             @if($task->description)
                                                 <div class="mt-1 text-sm">{{ $task->description }}</div>
                                             @endif

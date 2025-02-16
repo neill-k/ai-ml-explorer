@@ -44,8 +44,8 @@
             <flux:navlist variant="outline">
                 <flux:navlist.item icon="home" href="/" @class(['current' => request()->is('/')])>Home</flux:navlist.item>
                 <flux:navlist.item icon="queue-list" href="/models" @class(['current' => request()->is('models')])>Model List</flux:navlist.item>
-                <flux:navlist.item icon="academic-cap" href="/tasks" @class(['current' => request()->is('tasks')])>Research Tasks</flux:navlist.item>
-                <flux:navlist.item icon="rectangle-group" href="/families" @class(['current' => request()->is('families')])>Model Families</flux:navlist.item>
+                <flux:navlist.item icon="academic-cap" href="/tasks" @class(['current' => request()->is('tasks')])>Tasks</flux:navlist.item>
+                <flux:navlist.item icon="rectangle-group" href="{{ route('model-families.index') }}" @class(['current' => request()->is('model-families*')])>Model Families</flux:navlist.item>
     
             </flux:navlist>
     
